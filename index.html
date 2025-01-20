@@ -25,6 +25,7 @@
         }
         #scoreLabel { font-size: 2em; margin-right: 10px; }
     </style>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self' 'unsafe-inline';">
 </head>
 <body>
     <h1>CAT Test v0.5 - Public</h1>
@@ -235,11 +236,19 @@
                     },
                     details: "Verifies if the browser supports CSS Flexbox for flexible layouts."
                 },
-                { 
-                    name: "ES6 Support", 
+                {
+                    name: "ES6 Support",
                     test: function() {
                         try {
-                            var result = (function() { try { new Function("(a = 0) => a"); return true; } catch (err) { return false; } })();
+                            var result = (function() {
+                                try {
+                                    // 测试 ES6 的核心特性：let 和 const
+                                    eval("let x = 1; const y = 2; x + y");
+                                    return true;
+                                } catch (err) {
+                                    return false;
+                                }
+                            })();
                             return { result: result, logs: ["ES6 support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in ES6 check: " + e.message] };
@@ -489,7 +498,7 @@
                                 img.onerror = function() {
                                     resolve({ result: false, logs: ["Data URI support: FAIL"] });
                                 };
-                                img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                                img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAPUExURQCWZcndsQVMk91EMwAAACLr6bkAAAAFdFJOU/////8A+7YOUwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAFpJREFUKFNVjgkOACEIAyvy/zdvD0yWRqKMpQqcLYGKvB80TvmKwA4BXqgb0NDhVcDMSwIc+umBq6IgIGLA1RtAIGG3rkcEaPGDzotDNf04+JfEBzgkrcBS9wfvoQIucsfr2wAAAABJRU5ErkJggg==";
                             } catch (e) {
                                 resolve({ result: false, logs: ["Error in Data URI support check: " + e.message] });
                             }
@@ -545,7 +554,7 @@
                             <span class="expand-btn">[Details]</span>\
                             <div class="details">\
                                 <p>' + test.details + '</p>\
-                                <pre>' + resultData.logs.join("\n") + '</pre>\
+                                <pre>' + (resultData.logs ? resultData.logs.join("\n") : '') + '</pre>\
                             </div>\
                         ';
                         results.appendChild(div);
