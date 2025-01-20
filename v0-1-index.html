@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT Test v0.1 - Private</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        #results { margin-top: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9; }
+        .pass { color: green; }
+        .fail { color: red; }
+        .details { margin-top: 10px; font-size: 0.9em; display: none; }
+        .expand-btn { cursor: pointer; color: blue; text-decoration: underline; margin-left: 10px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <h1>CAT Test v0.1 - Private</h1>
+    <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
+    <button id="runTestsButton">Run Tests</button>
+    <div id="results"></div>
+
+    <script>
+        function runTests() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<h2>Running Tests...</h2>';
+
+            const tests = [
+                { 
+                    name: "Async/Await Support", 
+                    test: () => {
+                        try {
+                            const result = typeof (async () => {}).constructor === "function";
+                            return { result, logs: ["Checking async/await support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in async/await check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports modern JavaScript async/await syntax for asynchronous programming."
+                },
+                { 
+                    name: "Canvas Support", 
+                    test: () => {
+                        try {
+                            const result = !!document.createElement('canvas').getContext;
+                            return { result, logs: ["Canvas support detected: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in canvas support check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the HTML5 Canvas API is available for drawing graphics and animations."
+                },
+                { 
+                    name: "CSS Grid Support", 
+                    test: () => {
+                        try {
+                            const result = CSS.supports("display", "grid");
+                            return { result, logs: ["CSS Grid support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS Grid check: " + e.message] };
+                        }
+                    },
+                    details: "Verifies if the browser supports CSS Grid for advanced layout designs."
+                },
+                { 
+                    name: "CSS Variables Support", 
+                    test: () => {
+                        try {
+                            const result = CSS.supports("color", "var(--primary-color)");
+                            return { result, logs: ["CSS Variables support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS Variables check: " + e.message] };
+                        }
+                    },
+                    details: "Ensures the browser supports CSS custom properties (variables)."
+                },
+                { 
+                    name: "HTTPS Connection", 
+                    test: () => {
+                        try {
+                            const result = location.protocol === 'https:';
+                            return { result, logs: ["HTTPS connection: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in HTTPS check: " + e.message] };
+                        }
+                    },
+                    details: "Confirms if the page is loaded over a secure HTTPS connection."
+                },
+                { 
+                    name: "WebAssembly Support", 
+                    test: () => {
+                        try {
+                            const result = typeof WebAssembly !== "undefined";
+                            return { result, logs: ["WebAssembly support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in WebAssembly check: " + e.message] };
+                        }
+                    },
+                    details: "Checks for WebAssembly, which enables high-performance applications in the browser."
+                },
+                { 
+                    name: "WebRTC Support", 
+                    test: () => {
+                        try {
+                            const result = 'RTCPeerConnection' in window;
+                            return { result, logs: ["WebRTC support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in WebRTC check: " + e.message] };
+                        }
+                    },
+                    details: "Tests for WebRTC, allowing peer-to-peer communication, such as video calls."
+                },
+                { 
+                    name: "Service Worker Support", 
+                    test: () => {
+                        try {
+                            const result = 'serviceWorker' in navigator;
+                            return { result, logs: ["Service Worker support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Service Worker check: " + e.message] };
+                        }
+                    },
+                    details: "Verifies if the browser supports Service Workers for offline capabilities and push notifications."
+                },
+                { 
+                    name: "CSP Support", 
+                    test: () => {
+                        try {
+                            let cspEnabled = false;
+                            const script = document.createElement('script');
+                            script.src = "https://example.com/blocked.js";
+                            document.head.appendChild(script);
+                            return { result: false, logs: ["No CSP violation detected. CSP may not be active."] };
+                        } catch (e) {
+                            return { result: true, logs: ["CSP violation detected: " + e.message] };
+                        }
+                    },
+                    details: "Tests Content Security Policy (CSP) implementation to prevent unsafe resources."
+                }
+            ];
+
+            results.innerHTML = ''; // Clear previous results
+            for (const { name, test, details } of tests) {
+                let resultData;
+                try {
+                    resultData = test(); // Execute test
+                } catch (e) {
+                    resultData = { result: false, logs: ["Error running test: " + e.message] }; // Handle errors
+                }
+
+                const div = document.createElement('div');
+                div.className = `test ${resultData.result ? 'pass' : 'fail'}`;
+                div.innerHTML = `
+                    <span>${name}: ${resultData.result ? 'PASS' : 'FAIL'}</span>
+                    <span class="expand-btn" onclick="toggleDetails(this)">[Details]</span>
+                    <div class="details">
+                        <p>${details}</p>
+                        <pre>${resultData.logs.join("\n")}</pre>
+                    </div>
+                `;
+                results.appendChild(div);
+            }
+
+            // Add summary
+            const totalTests = tests.length;
+            const passedTests = document.querySelectorAll('.pass').length;
+            const summary = document.createElement('div');
+            summary.innerHTML = `<h3>Summary: ${passedTests}/${totalTests} tests passed</h3>`;
+            results.appendChild(summary);
+        }
+
+        // Toggle detailed information
+        function toggleDetails(btn) {
+            const detailsDiv = btn.nextElementSibling;
+            detailsDiv.style.display = detailsDiv.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Bind runTests to the button
+        document.getElementById('runTestsButton').addEventListener('click', runTests);
+    </script>
+</body>
+</html>
