@@ -1,6 +1,10 @@
-# CAT Test v0.3 - Public
+# CAT Test v0.4 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
+
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/elefish-top/CAT-Test)
+![GitHub](https://img.shields.io/github/license/elefish-top/CAT-Test)
+![GitHub issues](https://img.shields.io/github/issues/elefish-top/CAT-Test)
 
 ## Updates
 
@@ -10,6 +14,20 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 ## English Version
 
 ### Changelog
+
+- **v0.4 - Public**
+  - Added tests for Network Information API.
+  - Added tests for Pointer Events.
+  - Added tests for Payment Request API.
+  - Added tests for Web NFC.
+  - Added tests for WebVR/WebXR.
+  - Added tests for Web Speech API (Speech Recognition).
+  - Added tests for Clipboard API.
+  - Added tests for Web Push Notifications.
+  - Added tests for File System Access API.
+  - Added tests for Audio Worklet API.
+  - Added tests for Background Sync API.
+  - Added tests for Web Bluetooth API.
 
 - **v0.3 - Public**
   - Added IP address display.
@@ -59,6 +77,18 @@ The following test features are currently implemented:
 - **ES6 Support**: Checks if the browser supports ECMAScript 6 (ES6) features.
 - **WebGL Support**: Tests if the browser supports WebGL for 3D graphics rendering.
 - **SVG Support**: Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images.
+- **Network Information API**: Tests if the browser supports the Network Information API, providing details about the user's network connection.
+- **Pointer Events Support**: Checks if the browser supports Pointer Events, used for handling mouse, touch, and pen input in a unified way.
+- **Payment Request API**: Tests if the browser supports the Payment Request API, allowing for easier and more secure online payments.
+- **Web NFC Support**: Tests if the browser supports the Web NFC API for enabling Near Field Communication interactions.
+- **WebVR/WebXR Support**: Checks if the browser supports WebVR or WebXR for Virtual Reality and Augmented Reality experiences.
+- **Web Speech API - Speech Recognition**: Tests if the browser supports the Web Speech API for speech recognition, allowing voice input.
+- **Clipboard API**: Checks if the browser supports the Clipboard API for reading and writing content to the clipboard.
+- **Web Push Notifications**: Tests if the browser supports Web Push Notifications, allowing websites to send notifications to users.
+- **File System Access API**: Checks if the browser supports the File System Access API, allowing websites to read and write files to the local file system.
+- **Audio Worklet API**: Checks if the browser supports Audio Worklet API for real-time audio processing and synthesis.
+- **Background Sync API**: Tests if the browser supports the Background Sync API, allowing websites to synchronize data in the background.
+- **Web Bluetooth API**: Tests if the browser supports the Web Bluetooth API for connecting and interacting with Bluetooth devices.
 
 ### Contributing
 
@@ -71,6 +101,20 @@ This project is licensed under the Apache-2.0 License.
 ## 中文版
 
 ### 更新日志
+
+- **v0.4 - Public**
+  - 增加了对网络信息 API 的测试。
+  - 增加了对指针事件的测试。
+  - 增加了对支付请求 API 的测试。
+  - 增加了对 Web NFC 的测试。
+  - 增加了对 WebVR/WebXR 的测试。
+  - 增加了对 Web Speech API（语音识别）的测试。
+  - 增加了对剪贴板 API 的测试。
+  - 增加了对 Web 推送通知的测试。
+  - 增加了对文件系统访问 API 的测试。
+  - 增加了对音频工作线程 API 的测试。
+  - 增加了对后台同步 API 的测试。
+  - 增加了对 Web 蓝牙 API 的测试。
 
 - **v0.3 - Public**
   - 增加了 IP 地址显示。
@@ -120,6 +164,18 @@ This project is licensed under the Apache-2.0 License.
 - **ES6 Support**: 检查浏览器是否支持 ECMAScript 6 (ES6) 特性。
 - **WebGL Support**: 测试浏览器是否支持 WebGL 以进行 3D 图形渲染。
 - **SVG Support**: 测试浏览器是否支持 SVG（可缩放矢量图形）以渲染矢量图像。
+- **Network Information API**: 测试浏览器是否支持网络信息 API，提供有关用户网络连接的详细信息。
+- **Pointer Events Support**: 检查浏览器是否支持指针事件，用于统一处理鼠标、触摸和笔输入。
+- **Payment Request API**: 测试浏览器是否支持支付请求 API，使在线支付更容易和更安全。
+- **Web NFC Support**: 测试浏览器是否支持 Web NFC API，以启用近场通信交互。
+- **WebVR/WebXR Support**: 检查浏览器是否支持 WebVR 或 WebXR，以实现虚拟现实和增强现实体验。
+- **Web Speech API - Speech Recognition**: 测试浏览器是否支持 Web Speech API 进行语音识别，允许语音输入。
+- **Clipboard API**: 检查浏览器是否支持剪贴板 API，以读取和写入剪贴板内容。
+- **Web Push Notifications**: 测试浏览器是否支持 Web 推送通知，允许网站向用户发送通知。
+- **File System Access API**: 检查浏览器是否支持文件系统访问 API，允许网站读取和写入本地文件系统中的文件。
+- **Audio Worklet API**: 检查浏览器是否支持音频工作线程 API，以进行实时音频处理和合成。
+- **Background Sync API**: 测试浏览器是否支持后台同步 API，允许网站在后台同步数据。
+- **Web Bluetooth API**: 测试浏览器是否支持 Web 蓝牙 API，以连接和与蓝牙设备交互。
 
 ### 贡献
 

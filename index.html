@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAT Test v0.3 - Public</title>
+    <title>CAT Test v0.4 - Public</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
         #results { margin-top: 20px; }
@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-    <h1>CAT Test v0.3 - Public</h1>
+    <h1>CAT Test v0.4 - Public</h1>
     <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
     <p><strong>Note:</strong> This test includes a check for Content Security Policy (CSP) which may affect the loading of certain resources for security purposes.</p>
     <button id="runTestsButton">Run Tests</button>
@@ -253,6 +253,151 @@
                     },
                     details: "Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images."
                 },
+                { 
+                    name: "Network Information API", 
+                    test: function() {
+                        try {
+                            var result = 'connection' in navigator;
+                            return { result: result, logs: ["Network Information API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Network Information API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Network Information API, providing details about the user's network connection."
+                },
+                { 
+                    name: "Pointer Events Support", 
+                    test: function() {
+                        try {
+                            var result = 'PointerEvent' in window;
+                            return { result: result, logs: ["Pointer Events support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Pointer Events check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports Pointer Events, used for handling mouse, touch, and pen input in a unified way."
+                },
+                { 
+                    name: "Payment Request API", 
+                    test: function() {
+                        try {
+                            var result = 'PaymentRequest' in window;
+                            return { result: result, logs: ["Payment Request API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Payment Request API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Payment Request API, allowing for easier and more secure online payments."
+                },
+                { 
+                    name: "Web NFC Support", 
+                    test: function() {
+                        try {
+                            var result = 'NFC' in window;
+                            return { result: result, logs: ["Web NFC support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web NFC check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Web NFC API for enabling Near Field Communication interactions."
+                },
+                { 
+                    name: "WebVR/WebXR Support", 
+                    test: function() {
+                        try {
+                            var result = 'getUserMedia' in navigator || 'xr' in navigator;
+                            return { result: result, logs: ["WebVR/WebXR support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in WebVR/WebXR check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports WebVR or WebXR for Virtual Reality and Augmented Reality experiences."
+                },
+                { 
+                    name: "Web Speech API - Speech Recognition", 
+                    test: function() {
+                        try {
+                            var result = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+                            return { result: result, logs: ["Web Speech API (Speech Recognition) support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Speech API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Web Speech API for speech recognition, allowing voice input."
+                },
+                { 
+                    name: "Clipboard API", 
+                    test: function() {
+                        try {
+                            var result = 'clipboard' in navigator;
+                            return { result: result, logs: ["Clipboard API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Clipboard API check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports the Clipboard API for reading and writing content to the clipboard."
+                },
+                { 
+                    name: "Web Push Notifications", 
+                    test: function() {
+                        try {
+                            var result = 'PushManager' in window;
+                            return { result: result, logs: ["Web Push Notifications support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Push Notifications check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Web Push Notifications, allowing websites to send notifications to users."
+                },
+                { 
+                    name: "File System Access API", 
+                    test: function() {
+                        try {
+                            var result = 'showOpenFilePicker' in window;
+                            return { result: result, logs: ["File System Access API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in File System Access API check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports the File System Access API, allowing websites to read and write files to the local file system."
+                },
+                { 
+                    name: "Audio Worklet API", 
+                    test: function() {
+                        try {
+                            var result = 'AudioWorklet' in window;
+                            return { result: result, logs: ["Audio Worklet support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Audio Worklet check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports Audio Worklet API for real-time audio processing and synthesis."
+                },
+                { 
+                    name: "Background Sync API", 
+                    test: function() {
+                        try {
+                            var result = 'SyncManager' in window;
+                            return { result: result, logs: ["Background Sync API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Background Sync API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Background Sync API, allowing websites to synchronize data in the background."
+                },
+                { 
+                    name: "Web Bluetooth API", 
+                    test: function() {
+                        try {
+                            var result = 'bluetooth' in navigator;
+                            return { result: result, logs: ["Web Bluetooth API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Bluetooth check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Web Bluetooth API for connecting and interacting with Bluetooth devices."
+                }
+
                 
             ];
 
