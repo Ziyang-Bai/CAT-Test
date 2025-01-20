@@ -1,60 +1,130 @@
-# CAT Test v0.1 - Private
+# CAT Test v0.3 - Public
 
-这是一个浏览器兼容性和功能测试工具。通过运行一系列测试来评估您的浏览器能力。
+This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
 
-This is a browser compatibility and feature test tool. It evaluates your browser's capabilities by running a series of tests.
+## Updates
 
-## 使用方法 / Usage
+### [English Version](#english-version)
+### [中文版](#中文版)
 
-1. 打开 `index.html` 文件。
-2. 点击“Run Tests”按钮以运行测试。
-3. 查看测试结果和详细信息。
+## English Version
 
-1. Open the `index.html` file.
+### Changelog
+
+- **v0.3 - Public**
+  - Added IP address display.
+  - Added SVG support test.
+  - Improved toggleDetails function for better visibility handling.
+  - Added note about CSP check affecting resource loading.
+
+- **v0.1 - Private**
+  - Added support for async/await.
+  - Added support for Canvas.
+  - Added support for CSS Grid.
+  - Added support for CSS Variables.
+  - Added support for HTTPS connection.
+  - Added support for WebAssembly.
+  - Added support for WebRTC.
+  - Added support for Service Worker.
+  - Added support for CSP.
+  - Added support for LocalStorage.
+  - Added support for IndexedDB.
+  - Added support for Geolocation API.
+  - Added support for WebSockets.
+
+### Usage
+
+1. Open the `index.html` file or visit https://www.efish.top/CAT-Test / https://cat-test.efish.top/.
 2. Click the "Run Tests" button to run the tests.
 3. View the test results and details.
 
-## 测试功能 / Test Features
-
-以下是当前实现的测试功能：
+### Test Features
 
 The following test features are currently implemented:
 
-- **Async/Await Support**: 测试浏览器是否支持现代 JavaScript 的 async/await 语法。  
-  Tests if the browser supports modern JavaScript async/await syntax for asynchronous programming.
-- **Canvas Support**: 检查 HTML5 Canvas API 是否可用。  
-  Checks if the HTML5 Canvas API is available for drawing graphics and animations.
-- **CSS Grid Support**: 验证浏览器是否支持 CSS Grid 布局。  
-  Verifies if the browser supports CSS Grid for advanced layout designs.
-- **CSS Variables Support**: 确保浏览器支持 CSS 自定义属性（变量）。  
-  Ensures the browser supports CSS custom properties (variables).
-- **HTTPS Connection**: 确认页面是否通过安全的 HTTPS 连接加载。  
-  Confirms if the page is loaded over a secure HTTPS connection.
-- **WebAssembly Support**: 检查 WebAssembly 支持情况，以便在浏览器中启用高性能应用程序。  
-  Checks for WebAssembly, which enables high-performance applications in the browser.
-- **WebRTC Support**: 测试 WebRTC 支持情况，允许点对点通信，如视频通话。  
-  Tests for WebRTC, allowing peer-to-peer communication, such as video calls.
-- **Service Worker Support**: 验证浏览器是否支持 Service Workers，以实现离线功能和推送通知。  
-  Verifies if the browser supports Service Workers for offline capabilities and push notifications.
-- **CSP Support**: 测试内容安全策略（CSP）实施情况，以防止不安全资源。  
-  Tests Content Security Policy (CSP) implementation to prevent unsafe resources.
-- **LocalStorage Support**: 检查浏览器是否支持 LocalStorage 以本地存储数据。  
-  Checks if the browser supports LocalStorage for storing data locally.
-- **IndexedDB Support**: 验证浏览器是否支持 IndexedDB 以存储大量结构化数据。  
-  Verifies if the browser supports IndexedDB for storing large amounts of structured data.
-- **Geolocation API Support**: 测试浏览器是否支持 Geolocation API 以访问设备位置。  
-  Tests if the browser supports the Geolocation API for accessing the device's location.
-- **WebSockets Support**: 检查浏览器是否支持 WebSockets 以实现实时通信。  
-  Checks if the browser supports WebSockets for real-time communication.
+- **Async/Await Support**: Tests if the browser supports modern JavaScript async/await syntax for asynchronous programming.
+- **Canvas Support**: Checks if the HTML5 Canvas API is available for drawing graphics and animations.
+- **CSS Grid Support**: Verifies if the browser supports CSS Grid for advanced layout designs.
+- **CSS Variables Support**: Ensures the browser supports CSS custom properties (variables).
+- **HTTPS Connection**: Confirms if the page is loaded over a secure HTTPS connection.
+- **WebAssembly Support**: Checks for WebAssembly, which enables high-performance applications in the browser.
+- **WebRTC Support**: Tests for WebRTC, allowing peer-to-peer communication, such as video calls.
+- **Service Worker Support**: Verifies if the browser supports Service Workers for offline capabilities and push notifications.
+- **CSP Support**: Tests Content Security Policy (CSP) implementation to prevent unsafe resources.
+- **LocalStorage Support**: Checks if the browser supports LocalStorage for storing data locally.
+- **IndexedDB Support**: Verifies if the browser supports IndexedDB for storing large amounts of structured data.
+- **Geolocation API Support**: Tests if the browser supports the Geolocation API for accessing the device's location.
+- **WebSockets Support**: Checks if the browser supports WebSockets for real-time communication.
+- **Flexbox Support**: Verifies if the browser supports CSS Flexbox for flexible layouts.
+- **ES6 Support**: Checks if the browser supports ECMAScript 6 (ES6) features.
+- **WebGL Support**: Tests if the browser supports WebGL for 3D graphics rendering.
+- **SVG Support**: Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images.
 
-## 贡献 / Contributing
-
-如果您有任何建议或改进，请提交问题或拉取请求。
+### Contributing
 
 If you have any suggestions or improvements, please submit an issue or pull request.
 
-## 许可证 / License
-
-此项目采用 Apache-2.0 许可证。
+### License
 
 This project is licensed under the Apache-2.0 License.
+
+## 中文版
+
+### 更新日志
+
+- **v0.3 - Public**
+  - 增加了 IP 地址显示。
+  - 增加了 SVG 支持检测。
+  - 改进了 toggleDetails 函数以更好地处理可见性。
+  - 增加了关于 CSP 检查影响资源加载的提示。
+
+- **v0.1 - Private**
+  - 已添加对 async/await 的支持。
+  - 已添加对画布的支持。
+  - 已添加对 CSS 网格的支持。
+  - 已添加 CSS 变量支持。
+  - 已添加 HTTPS 连接支持。
+  - 已添加对 WebAssembly 的支持。
+  - 已添加对 WebRTC 的支持。
+  - 已添加对 Service Worker 的支持。
+  - 已添加对 CSP 的支持。
+  - 已添加对 LocalStorage 的支持。
+  - 已添加对 IndexedDB 的支持。
+  - 已添加对地理位置 API 的支持。
+  - 已添加对 WebSockets 的支持。
+
+### 使用方法
+
+1. 打开 `index.html` 文件或访问https://www.efish.top/CAT-Test / https://cat-test.efish.top/。
+2. 点击“Run Tests”按钮以运行测试。
+3. 查看测试结果和详细信息。
+
+### 测试功能
+
+以下是当前实现的测试功能：
+
+- **Async/Await Support**: 测试浏览器是否支持现代 JavaScript 的 async/await 语法。
+- **Canvas Support**: 检查 HTML5 Canvas API 是否可用。
+- **CSS Grid Support**: 验证浏览器是否支持 CSS Grid 布局。
+- **CSS Variables Support**: 确保浏览器支持 CSS 自定义属性（变量）。
+- **HTTPS Connection**: 确认页面是否通过安全的 HTTPS 连接加载。
+- **WebAssembly Support**: 检查 WebAssembly 支持情况，以便在浏览器中启用高性能应用程序。
+- **WebRTC Support**: 测试 WebRTC 支持情况，允许点对点通信，如视频通话。
+- **Service Worker Support**: 验证浏览器是否支持 Service Workers，以实现离线功能和推送通知。
+- **CSP Support**: 测试内容安全策略（CSP）实施情况，以防止不安全资源。
+- **LocalStorage Support**: 检查浏览器是否支持 LocalStorage 以本地存储数据。
+- **IndexedDB Support**: 验证浏览器是否支持 IndexedDB 以存储大量结构化数据。
+- **Geolocation API Support**: 测试浏览器是否支持 Geolocation API 以访问设备位置。
+- **WebSockets Support**: 检查浏览器是否支持 WebSockets 以实现实时通信。
+- **Flexbox Support**: 验证浏览器是否支持 CSS Flexbox 以实现灵活布局。
+- **ES6 Support**: 检查浏览器是否支持 ECMAScript 6 (ES6) 特性。
+- **WebGL Support**: 测试浏览器是否支持 WebGL 以进行 3D 图形渲染。
+- **SVG Support**: 测试浏览器是否支持 SVG（可缩放矢量图形）以渲染矢量图像。
+
+### 贡献
+
+如果您有任何建议或改进，请提交问题或拉取请求。
+
+### 许可证
+
+此项目采用 Apache-2.0 许可证。

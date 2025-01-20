@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAT Test v0.1 - Private</title>
+    <title>CAT Test v0.3 - Public</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
         #results { margin-top: 20px; }
@@ -12,26 +12,42 @@
         .fail { color: red; }
         .details { margin-top: 10px; font-size: 0.9em; display: none; }
         .expand-btn { cursor: pointer; color: blue; text-decoration: underline; margin-left: 10px; font-size: 0.9em; }
+        #progress { margin-top: 20px; }
     </style>
 </head>
 <body>
-    <h1>CAT Test v0.1 - Private</h1>
+    <h1>CAT Test v0.3 - Public</h1>
     <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
+    <p><strong>Note:</strong> This test includes a check for Content Security Policy (CSP) which may affect the loading of certain resources for security purposes.</p>
     <button id="runTestsButton">Run Tests</button>
+    <div id="progress"></div>
     <div id="results"></div>
-    <p>View the project on <a href="https://github.com/Ziyang-Bai/CAT-Test" target="_blank">GitHub</a>.</p>
+    <p>View the project on <a href="https://github.com/elefish-top/CAT-Test" target="_blank">GitHub</a>.</p>
+    <p id="ipAddress">Fetching IP address...</p>
 
     <script>
         function runTests() {
-            const results = document.getElementById('results');
+            var results = document.getElementById('results');
+            var progress = document.getElementById('progress');
             results.innerHTML = '<h2>Running Tests...</h2>';
+            progress.innerHTML = '';
 
-            const tests = [
+            // Fetch and display the user's IP address
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('ipAddress').textContent = 'Your IP Address: ' + data.ip;
+                })
+                .catch(error => {
+                    document.getElementById('ipAddress').textContent = 'Unable to fetch IP address.';
+                });
+
+            var tests = [
                 { 
                     name: "Async/Await Support", 
                     test: function() {
                         try {
-                            const result = typeof (async function() {}).constructor === "function";
+                            var result = typeof (async function() {}).constructor === "function";
                             return { result: result, logs: ["Checking async/await support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in async/await check: " + e.message] };
@@ -43,7 +59,7 @@
                     name: "Canvas Support", 
                     test: function() {
                         try {
-                            const result = !!document.createElement('canvas').getContext;
+                            var result = !!document.createElement('canvas').getContext;
                             return { result: result, logs: ["Canvas support detected: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in canvas support check: " + e.message] };
@@ -55,7 +71,7 @@
                     name: "CSS Grid Support", 
                     test: function() {
                         try {
-                            const result = CSS.supports("display", "grid");
+                            var result = CSS.supports("display", "grid");
                             return { result: result, logs: ["CSS Grid support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in CSS Grid check: " + e.message] };
@@ -67,7 +83,7 @@
                     name: "CSS Variables Support", 
                     test: function() {
                         try {
-                            const result = CSS.supports("color", "var(--primary-color)");
+                            var result = CSS.supports("color", "var(--primary-color)");
                             return { result: result, logs: ["CSS Variables support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in CSS Variables check: " + e.message] };
@@ -79,19 +95,20 @@
                     name: "HTTPS Connection", 
                     test: function() {
                         try {
-                            const result = location.protocol === 'https:';
+                            var result = location.protocol === 'https:';
                             return { result: result, logs: ["HTTPS connection: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in HTTPS check: " + e.message] };
                         }
                     },
-                    details: "Confirms if the page is loaded over a secure HTTPS connection."
+                    details: "Confirms if the page is loaded over a secure HTTPS connection. This check will not work if you are accessing locally, or if the server does not have a valid SSL certificate."
+
                 },
                 { 
                     name: "WebAssembly Support", 
                     test: function() {
                         try {
-                            const result = typeof WebAssembly !== "undefined";
+                            var result = typeof WebAssembly !== "undefined";
                             return { result: result, logs: ["WebAssembly support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in WebAssembly check: " + e.message] };
@@ -103,7 +120,7 @@
                     name: "WebRTC Support", 
                     test: function() {
                         try {
-                            const result = 'RTCPeerConnection' in window;
+                            var result = 'RTCPeerConnection' in window;
                             return { result: result, logs: ["WebRTC support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in WebRTC check: " + e.message] };
@@ -115,7 +132,7 @@
                     name: "Service Worker Support", 
                     test: function() {
                         try {
-                            const result = 'serviceWorker' in navigator;
+                            var result = 'serviceWorker' in navigator;
                             return { result: result, logs: ["Service Worker support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in Service Worker check: " + e.message] };
@@ -127,11 +144,11 @@
                     name: "CSP Support", 
                     test: function() {
                         try {
-                            const meta = document.createElement('meta');
+                            var meta = document.createElement('meta');
                             meta.httpEquiv = "Content-Security-Policy";
                             meta.content = "default-src 'self'";
                             document.head.appendChild(meta);
-                            const result = true;
+                            var result = true;
                             return { result: result, logs: ["CSP meta tag added."] };
                         } catch (e) {
                             return { result: false, logs: ["Error in CSP check: " + e.message] };
@@ -143,7 +160,7 @@
                     name: "LocalStorage Support", 
                     test: function() {
                         try {
-                            const result = 'localStorage' in window && window['localStorage'] !== null;
+                            var result = 'localStorage' in window && window['localStorage'] !== null;
                             return { result: result, logs: ["LocalStorage support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in LocalStorage check: " + e.message] };
@@ -155,7 +172,7 @@
                     name: "IndexedDB Support", 
                     test: function() {
                         try {
-                            const result = 'indexedDB' in window;
+                            var result = 'indexedDB' in window;
                             return { result: result, logs: ["IndexedDB support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in IndexedDB check: " + e.message] };
@@ -167,7 +184,7 @@
                     name: "Geolocation API Support", 
                     test: function() {
                         try {
-                            const result = 'geolocation' in navigator;
+                            var result = 'geolocation' in navigator;
                             return { result: result, logs: ["Geolocation API support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in Geolocation API check: " + e.message] };
@@ -179,71 +196,130 @@
                     name: "WebSockets Support", 
                     test: function() {
                         try {
-                            const result = 'WebSocket' in window;
+                            var result = 'WebSocket' in window;
                             return { result: result, logs: ["WebSockets support: " + (result ? "PASS" : "FAIL")] };
                         } catch (e) {
                             return { result: false, logs: ["Error in WebSockets check: " + e.message] };
                         }
                     },
                     details: "Checks if the browser supports WebSockets for real-time communication."
-                }
+                },
+                { 
+                    name: "Flexbox Support", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("display", "flex");
+                            return { result: result, logs: ["Flexbox support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Flexbox check: " + e.message] };
+                        }
+                    },
+                    details: "Verifies if the browser supports CSS Flexbox for flexible layouts."
+                },
+                { 
+                    name: "ES6 Support", 
+                    test: function() {
+                        try {
+                            var result = (function() { try { new Function("(a = 0) => a"); return true; } catch (err) { return false; } })();
+                            return { result: result, logs: ["ES6 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in ES6 check: " + e.message] };
+                        }
+                    },
+                    details: "Checks if the browser supports ECMAScript 6 (ES6) features."
+                },
+                {
+                    name: "WebGL Support",
+                    test: function() {
+                        try {
+                            var canvas = document.createElement('canvas');
+                            var result = !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+                            return { result: result, logs: ["WebGL support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in WebGL check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports WebGL for 3D graphics rendering."
+                },
+                {
+                    name: "SVG Support",
+                    test: function() {
+                        try {
+                            var result = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
+                            return { result: result, logs: ["SVG support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in SVG check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images."
+                },
+                
             ];
 
             results.innerHTML = ''; // Clear previous results
             for (var i = 0; i < tests.length; i++) {
-                var test = tests[i];
-                var resultData;
-                try {
-                    resultData = test.test(); // Execute test
-                } catch (e) {
-                    resultData = { result: false, logs: ["Error running test: " + e.message] }; // Handle errors
-                }
+                (function(test, index) {
+                    setTimeout(function() {
+                        var resultData;
+                        try {
+                            resultData = test.test(); // Execute test
+                        } catch (e) {
+                            resultData = { result: false, logs: ["Error running test: " + e.message] }; // Handle errors
+                        }
 
-                var div = document.createElement('div');
-                div.className = 'test ' + (resultData.result ? 'pass' : 'fail');
-                div.innerHTML = '\
-                    <span>' + test.name + ': ' + (resultData.result ? 'PASS' : 'FAIL') + '</span>\
-                    <span class="expand-btn" onclick="toggleDetails(this)">[Details]</span>\
-                    <div class="details">\
-                        <p>' + test.details + '</p>\
-                        <pre>' + resultData.logs.join("\n") + '</pre>\
-                    </div>\
-                ';
-                results.appendChild(div);
+                        var div = document.createElement('div');
+                        div.className = 'test ' + (resultData.result ? 'pass' : 'fail');
+                        div.innerHTML = '\
+                            <span>' + test.name + ': ' + (resultData.result ? 'PASS' : 'FAIL') + '</span>\
+                            <span class="expand-btn">[Details]</span>\
+                            <div class="details">\
+                                <p>' + test.details + '</p>\
+                                <pre>' + resultData.logs.join("\n") + '</pre>\
+                            </div>\
+                        ';
+                        results.appendChild(div);
+
+                        // Update progress
+                        progress.innerHTML = 'Progress: ' + (index + 1) + '/' + tests.length + ' tests completed';
+
+                        // Bind event to the expand button
+                        var expandButton = div.querySelector('.expand-btn');
+                        expandButton.addEventListener('click', function() {
+                            toggleDetails(expandButton);
+                        });
+
+                    }, i * 100); // Delay each test to simulate progress
+                })(tests[i], i);
             }
 
             // Add summary
-            var totalTests = tests.length;
-            var passedTests = document.querySelectorAll('.pass').length;
-            var summary = document.createElement('div');
-            summary.innerHTML = '<h3>Summary: ' + passedTests + '/' + totalTests + ' tests passed</h3>';
-            results.appendChild(summary);
+            setTimeout(function() {
+                var totalTests = tests.length;
+                var passedTests = document.querySelectorAll('.pass').length;
+                var summary = document.createElement('div');
+                summary.innerHTML = '<h3>Summary: ' + passedTests + '/' + totalTests + ' tests passed</h3>';
+                results.appendChild(summary);
 
-            // Add user agent information
-            var uaInfo = document.createElement('div');
-            uaInfo.innerHTML = '<h3>User Agent: ' + navigator.userAgent + '</h3>';
-            results.insertBefore(uaInfo, results.firstChild);
+                // Add user agent information
+                var uaInfo = document.createElement('div');
+                uaInfo.innerHTML = '<h3>User Agent: ' + navigator.userAgent + '</h3>';
+                results.insertBefore(uaInfo, results.firstChild);
+            }, tests.length * 100);
         }
 
         // Toggle detailed information
         function toggleDetails(btn) {
-            var detailsDiv = btn.nextElementSibling;
-            detailsDiv.style.display = detailsDiv.style.display === 'block' ? 'none' : 'block';
-        }
-
-        // Polyfill for IE support
-        if (!String.prototype.includes) {
-            String.prototype.includes = function(search, start) {
-                'use strict';
-                if (typeof start !== 'number') {
-                    start = 0;
-                }
-                if (start + search.length > this.length) {
-                    return false;
+            var detailsDiv = btn.closest('.test').querySelector('.details');
+            if (detailsDiv) {
+                console.log("Toggling details..."); // 调试输出
+                if (detailsDiv.style.display === 'block') {
+                    detailsDiv.style.display = 'none';
+                    btn.textContent = '[Details]';  // 更新按钮文本
                 } else {
-                    return this.indexOf(search, start) !== -1;
+                    detailsDiv.style.display = 'block';
+                    btn.textContent = '[Hide]';  // 更新按钮文本
                 }
-            };
+            }
         }
 
         // Bind runTests to the button
