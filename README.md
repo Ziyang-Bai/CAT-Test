@@ -1,3 +1,6 @@
+
+<center><img src="favicon.ico" width="200"></img></center>
+
 # CAT Test v0.4 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
