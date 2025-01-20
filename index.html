@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAT Test v0.4 - Public</title>
+    <title>CAT Test v0.5 - Public</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
         #results { margin-top: 20px; }
@@ -13,15 +13,34 @@
         .details { margin-top: 10px; font-size: 0.9em; display: none; }
         .expand-btn { cursor: pointer; color: blue; text-decoration: underline; margin-left: 10px; font-size: 0.9em; }
         #progress { margin-top: 20px; }
+        #scoreBarContainer { position: absolute; right: 20px; top: 20px; display: flex; align-items: flex-end; }
+        .scoreStep { width: 50px; background: #ccc; margin-right: 5px; }
+        .scoreStep.red { background: red; height: 30px; }
+        .scoreStep.orange { background: orange; height: 40px; }
+        .scoreStep.green { background: green; height: 50px; }
+        .scoreStep.blink { animation: blink 1s infinite; }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        #scoreLabel { font-size: 2em; margin-right: 10px; }
     </style>
 </head>
 <body>
-    <h1>CAT Test v0.4 - Public</h1>
+    <h1>CAT Test v0.5 - Public</h1>
     <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
     <p><strong>Note:</strong> This test includes a check for Content Security Policy (CSP) which may affect the loading of certain resources for security purposes.</p>
-    <button id="runTestsButton">Run Tests</button>
+    <div style="display: flex; align-items: center;">
+        <button id="runTestsButton">Run Tests</button>
+    </div>
     <div id="progress"></div>
     <div id="results"></div>
+    <div id="scoreBarContainer">
+        <div id="scoreLabel">D</div>
+        <div id="scoreStep1" class="scoreStep red"></div>
+        <div id="scoreStep2" class="scoreStep orange"></div>
+        <div id="scoreStep3" class="scoreStep green"></div>
+    </div>
     <p>View the project on <a href="https://github.com/elefish-top/CAT-Test" target="_blank">GitHub</a>.</p>
     <p id="ipAddress">Fetching IP address...</p>
 
@@ -396,12 +415,119 @@
                         }
                     },
                     details: "Tests if the browser supports the Web Bluetooth API for connecting and interacting with Bluetooth devices."
+                },
+                { 
+                    name: "DOM Manipulation", 
+                    test: function() {
+                        try {
+                            var div = document.createElement('div');
+                            div.innerHTML = '<p>Test</p>';
+                            document.body.appendChild(div);
+                            var result = div.querySelector('p').textContent === 'Test';
+                            document.body.removeChild(div);
+                            return { result: result, logs: ["DOM manipulation: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in DOM manipulation check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports basic DOM manipulation."
+                },
+                { 
+                    name: "JavaScript Support", 
+                    test: function() {
+                        try {
+                            var result = typeof Function === 'function' && typeof Object === 'function';
+                            return { result: result, logs: ["JavaScript support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in JavaScript support check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports basic JavaScript language features."
+                },
+                { 
+                    name: "CSS Support", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("display", "block");
+                            return { result: result, logs: ["CSS support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS support check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports basic CSS features."
+                },
+                { 
+                    name: "Web Fonts Support", 
+                    test: function() {
+                        try {
+                            var style = document.createElement('style');
+                            style.textContent = "@font-face { font-family: 'TestFont'; src: url('data:font/woff2;base64,d09GMgABAAAAAA...') format('woff2'); }";
+                            document.head.appendChild(style);
+                            var div = document.createElement('div');
+                            div.style.fontFamily = 'TestFont';
+                            document.body.appendChild(div);
+                            var result = getComputedStyle(div).fontFamily === 'TestFont';
+                            document.body.removeChild(div);
+                            document.head.removeChild(style);
+                            return { result: result, logs: ["Web Fonts support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Fonts support check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports @font-face rule and custom fonts."
+                },
+                { 
+                    name: "Data URI Support", 
+                    test: function() {
+                        return new Promise((resolve) => {
+                            try {
+                                var img = new Image();
+                                img.onload = function() {
+                                    var result = img.width === 1 && img.height === 1;
+                                    resolve({ result: result, logs: ["Data URI support: " + (result ? "PASS" : "FAIL")] });
+                                };
+                                img.onerror = function() {
+                                    resolve({ result: false, logs: ["Data URI support: FAIL"] });
+                                };
+                                img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                            } catch (e) {
+                                resolve({ result: false, logs: ["Error in Data URI support check: " + e.message] });
+                            }
+                        });
+                    },
+                    details: "Tests if the browser supports Data URIs."
+                },
+                { 
+                    name: "XMLHttpRequest Support", 
+                    test: function() {
+                        try {
+                            var result = typeof XMLHttpRequest !== 'undefined';
+                            return { result: result, logs: ["XMLHttpRequest support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in XMLHttpRequest support check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports AJAX requests using XMLHttpRequest."
+                },
+                { 
+                    name: "HTML5 Support", 
+                    test: function() {
+                        try {
+                            var result = typeof document.createElement('canvas').getContext === 'function';
+                            return { result: result, logs: ["HTML5 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in HTML5 support check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports new HTML5 features."
                 }
-
-                
             ];
 
             results.innerHTML = ''; // Clear previous results
+            var scoreElement = document.getElementById('score');
+            var totalTests = tests.length;
+            var passedTests = 0;
+
             for (var i = 0; i < tests.length; i++) {
                 (function(test, index) {
                     setTimeout(function() {
@@ -427,6 +553,12 @@
                         // Update progress
                         progress.innerHTML = 'Progress: ' + (index + 1) + '/' + tests.length + ' tests completed';
 
+                        if (resultData.result) {
+                            passedTests++;
+                        }
+                        var scorePercentage = Math.round((passedTests / totalTests) * 100);
+                        updateScoreBar(scorePercentage);
+
                         // Bind event to the expand button
                         var expandButton = div.querySelector('.expand-btn');
                         expandButton.addEventListener('click', function() {
@@ -450,6 +582,82 @@
                 uaInfo.innerHTML = '<h3>User Agent: ' + navigator.userAgent + '</h3>';
                 results.insertBefore(uaInfo, results.firstChild);
             }, tests.length * 100);
+        }
+
+        function updateScoreBar(score) {
+            var step1 = document.getElementById('scoreStep1');
+            var step2 = document.getElementById('scoreStep2');
+            var step3 = document.getElementById('scoreStep3');
+            var scoreLabel = document.getElementById('scoreLabel');
+
+            step1.className = 'scoreStep red';
+            step2.className = 'scoreStep orange';
+            step3.className = 'scoreStep green';
+
+            if (score === 100) {
+                step1.classList.add('blink');
+                step2.classList.add('blink');
+                step3.classList.add('blink');
+                scoreLabel.textContent = 'AA';
+            } else if (score >= 80) {
+                step1.classList.remove('blink');
+                step2.classList.remove('blink');
+                step3.classList.remove('blink');
+                scoreLabel.textContent = 'A';
+            } else if (score >= 60) {
+                step1.classList.remove('blink');
+                step2.classList.remove('blink');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'B';
+            } else if (score >= 40) {
+                step1.classList.remove('blink');
+                step2.classList.remove('orange');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'C';
+            } else {
+                step1.classList.remove('blink');
+                step2.classList.remove('orange');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'D';
+            }
+        }
+
+        function setScoreLevel(level) {
+            var step1 = document.getElementById('scoreStep1');
+            var step2 = document.getElementById('scoreStep2');
+            var step3 = document.getElementById('scoreStep3');
+            var scoreLabel = document.getElementById('scoreLabel');
+
+            step1.className = 'scoreStep red';
+            step2.className = 'scoreStep orange';
+            step3.className = 'scoreStep green';
+
+            if (level === 'AA') {
+                step1.classList.add('blink');
+                step2.classList.add('blink');
+                step3.classList.add('blink');
+                scoreLabel.textContent = 'AA';
+            } else if (level === 'A') {
+                step1.classList.remove('blink');
+                step2.classList.remove('blink');
+                step3.classList.remove('blink');
+                scoreLabel.textContent = 'A';
+            } else if (level === 'B') {
+                step1.classList.remove('blink');
+                step2.classList.remove('blink');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'B';
+            } else if (level === 'C') {
+                step1.classList.remove('blink');
+                step2.classList.remove('orange');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'C';
+            } else {
+                step1.classList.remove('blink');
+                step2.classList.remove('orange');
+                step3.classList.remove('green');
+                scoreLabel.textContent = 'D';
+            }
         }
 
         // Toggle detailed information

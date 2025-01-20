@@ -1,14 +1,13 @@
-
 <center><img src="favicon.ico" width="200"></img></center>
 
-# CAT Test v0.4 - Public
+# CAT Test v0.5 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/elefish-top/CAT-Test)
 ![GitHub](https://img.shields.io/github/license/elefish-top/CAT-Test)
 ![GitHub issues](https://img.shields.io/github/issues/elefish-top/CAT-Test)
-
+![Screenshot](20250120130133359055.webp)
 ## Updates
 
 ### [English Version](#english-version)
@@ -17,6 +16,16 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 ## English Version
 
 ### Changelog
+
+- **v0.5 - Public**
+  - Added steps.
+  - Added tests for DOM Manipulation.
+  - Added tests for JavaScript Support.
+  - Added tests for CSS Support.
+  - Added tests for Web Fonts Support.
+  - Added tests for Data URI Support.
+  - Added tests for XMLHttpRequest Support.
+  - Added tests for HTML5 Support.
 
 - **v0.4 - Public**
   - Added tests for Network Information API.
@@ -105,6 +114,16 @@ This project is licensed under the Apache-2.0 License.
 
 ### 更新日志
 
+- **v0.5 - Public**
+  - 增加了阶梯。
+  - 增加了对 DOM 操作的测试。
+  - 增加了对 JavaScript 支持的测试。
+  - 增加了对 CSS 支持的测试。
+  - 增加了对 Web 字体支持的测试。
+  - 增加了对 Data URI 支持的测试。
+  - 增加了对 XMLHttpRequest 支持的测试。
+  - 增加了对 HTML5 支持的测试。
+
 - **v0.4 - Public**
   - 增加了对网络信息 API 的测试。
   - 增加了对指针事件的测试。
@@ -187,3 +206,4 @@ This project is licensed under the Apache-2.0 License.
 ### 许可证
 
 此项目采用 Apache-2.0 许可证。
+
