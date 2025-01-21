@@ -1,6 +1,6 @@
 <center><img src="favicon.ico" width="200"></img></center>
 
-# CAT Test v0.5.1 - Public
+# CAT Test v0.5.2 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
 
@@ -16,6 +16,10 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 ## English Version
 
 ### Changelog
+
+- **v0.5.2 - Public**
+  - Fixed bugs in MathML Support, summary Element, Sandbox Attribute, and iframe with Inline Contents tests.
+  - Updated README to reflect changes.
 
 - **v0.5-fixb - Public**
   - Added IEtest and ES6test file.
@@ -69,7 +73,7 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 
 ### Usage
 
-1. Open the `index.html` file or visit https://www.efish.top/CAT-Test / https://cat-test.efish.top/.
+1. Open the `index.html` file or visit https://cat-test.efish.top/.
 2. Click the "Run Tests" button to run the tests.
 3. View the test results and details.
 
@@ -117,6 +121,10 @@ This project is licensed under the Apache-2.0 License.
 ## 中文版
 
 ### 更新日志
+
+- **v0.5.2 - Public**
+  - 修复了 MathML 支持、summary 元素、Sandbox 属性和 iframe 内联内容测试中的错误。
+  - 更新了 README 以反映更改。
 
 - **v0.5-fixb - Public**
   - 增加了 IE 兼容性检查和 ES6 专项检查。
@@ -170,7 +178,7 @@ This project is licensed under the Apache-2.0 License.
 
 ### 使用方法
 
-1. 打开 `index.html` 文件或访问https://www.efish.top/CAT-Test / https://cat-test.efish.top/。
+1. 打开 `index.html` 文件或访问 https://cat-test.efish.top/。
 2. 点击“Run Tests”按钮以运行测试。
 3. 查看测试结果和详细信息。
 

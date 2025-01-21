@@ -434,6 +434,379 @@
                         }
                     },
                     details: "Tests if the browser supports new HTML5 features."
+                },
+                { 
+                    name: "DOM Level 2 Events", 
+                    test: function() {
+                        try {
+                            var result = !!document.addEventListener;
+                            return { result: result, logs: ["DOM Level 2 Events support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in DOM Level 2 Events check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports DOM Level 2 Events."
+                },
+                { 
+                    name: "SVG Animation", 
+                    test: function() {
+                        try {
+                            var result = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "animate").beginElement;
+                            return { result: result, logs: ["SVG Animation support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in SVG Animation check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports SVG animations."
+                },
+                { 
+                    name: "SMIL Animation", 
+                    test: function() {
+                        try {
+                            var result = !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "animate").beginElement;
+                            return { result: result, logs: ["SMIL Animation support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in SMIL Animation check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports SMIL animations."
+                },
+                { 
+                    name: "HTML5 Video", 
+                    test: function() {
+                        try {
+                            var result = !!document.createElement('video').canPlayType;
+                            return { result: result, logs: ["HTML5 Video support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in HTML5 Video check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports HTML5 video."
+                },
+                { 
+                    name: "HTML5 Audio", 
+                    test: function() {
+                        try {
+                            var result = !!document.createElement('audio').canPlayType;
+                            return { result: result, logs: ["HTML5 Audio support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in HTML5 Audio check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports HTML5 audio."
+                },
+                { 
+                    name: "CSS Transitions", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("transition", "all 1s");
+                            return { result: result, logs: ["CSS Transitions support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS Transitions check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports CSS transitions."
+                },
+                { 
+                    name: "CSS Animations", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("animation", "name 1s");
+                            return { result: result, logs: ["CSS Animations support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS Animations check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports CSS animations."
+                },
+                { 
+                    name: "CSS 3D Transforms", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("transform", "rotateY(180deg)");
+                            return { result: result, logs: ["CSS 3D Transforms support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS 3D Transforms check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports CSS 3D transforms."
+                },
+                { 
+                    name: "CSS Gradients", 
+                    test: function() {
+                        try {
+                            var result = CSS.supports("background", "linear-gradient(to right, red, blue)");
+                            return { result: result, logs: ["CSS Gradients support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in CSS Gradients check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports CSS gradients."
+                },
+                { 
+                    name: "MathML Support", 
+                    test: function() {
+                        try {
+                            var math = document.createElementNS("http://www.w3.org/1998/Math/MathML", "math");
+                            var result = math.namespaceURI === "http://www.w3.org/1998/Math/MathML";
+                            return { result: result, logs: ["MathML support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in MathML check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports MathML for displaying mathematical notations."
+                },
+                { 
+                    name: "MPEG-4 Support", 
+                    test: function() {
+                        try {
+                            var video = document.createElement('video');
+                            var result = !!video.canPlayType && video.canPlayType('video/mp4; codecs="mp4v.20.8"') !== "";
+                            return { result: result, logs: ["MPEG-4 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in MPEG-4 check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports MPEG-4 video format."
+                },
+                { 
+                    name: "H.264 Support", 
+                    test: function() {
+                        try {
+                            var video = document.createElement('video');
+                            var result = !!video.canPlayType && video.canPlayType('video/mp4; codecs="avc1.42E01E"') !== "";
+                            return { result: result, logs: ["H.264 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in H.264 check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports H.264 video format."
+                },
+                { 
+                    name: "Ogg Theora Support", 
+                    test: function() {
+                        try {
+                            var video = document.createElement('video');
+                            var result = !!video.canPlayType && video.canPlayType('video/ogg; codecs="theora"') !== "";
+                            return { result: result, logs: ["Ogg Theora support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Ogg Theora check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Ogg Theora video format."
+                },
+                { 
+                    name: "WebM Support", 
+                    test: function() {
+                        try {
+                            var video = document.createElement('video');
+                            var result = !!video.canPlayType && video.canPlayType('video/webm; codecs="vp8, vorbis"') !== "";
+                            return { result: result, logs: ["WebM support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in WebM check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports WebM video format."
+                },
+                { 
+                    name: "details Element", 
+                    test: function() {
+                        try {
+                            var result = 'open' in document.createElement('details');
+                            return { result: result, logs: ["details element support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in details element check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 details element."
+                },
+                { 
+                    name: "summary Element", 
+                    test: function() {
+                        try {
+                            var details = document.createElement('details');
+                            var summary = document.createElement('summary');
+                            details.appendChild(summary);
+                            document.body.appendChild(details);
+                            var result = details.open === false;
+                            document.body.removeChild(details);
+                            return { result: result, logs: ["summary element support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in summary element check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 summary element."
+                },
+                { 
+                    name: "command Element", 
+                    test: function() {
+                        try {
+                            var result = 'type' in document.createElement('command');
+                            return { result: result, logs: ["command element support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in command element check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 command element."
+                },
+                { 
+                    name: "menu Element of Type List", 
+                    test: function() {
+                        try {
+                            var menu = document.createElement('menu');
+                            menu.type = 'list';
+                            var result = menu.type === 'list';
+                            return { result: result, logs: ["menu element of type list support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in menu element of type list check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 menu element of type list."
+                },
+                { 
+                    name: "menu Element of Type Toolbar", 
+                    test: function() {
+                        try {
+                            var menu = document.createElement('menu');
+                            menu.type = 'toolbar';
+                            var result = menu.type === 'toolbar';
+                            return { result: result, logs: ["menu element of type toolbar support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in menu element of type toolbar check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 menu element of type toolbar."
+                },
+                { 
+                    name: "menu Element of Type Context", 
+                    test: function() {
+                        try {
+                            var menu = document.createElement('menu');
+                            menu.type = 'context';
+                            var result = menu.type === 'context';
+                            return { result: result, logs: ["menu element of type context support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in menu element of type context check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the HTML5 menu element of type context."
+                },
+                { 
+                    name: "Dynamic Markup Insertion", 
+                    test: function() {
+                        try {
+                            var div = document.createElement('div');
+                            div.innerHTML = '<p>Test</p>';
+                            var result = div.querySelector('p').textContent === 'Test';
+                            return { result: result, logs: ["Dynamic markup insertion: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in dynamic markup insertion check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports dynamic markup insertion."
+                },
+                { 
+                    name: "Microdata", 
+                    test: function() {
+                        try {
+                            var div = document.createElement('div');
+                            div.innerHTML = '<div itemscope itemtype="http://schema.org/Person"><span itemprop="name">John Doe</span></div>';
+                            var result = div.querySelector('[itemprop="name"]').textContent === 'John Doe';
+                            return { result: result, logs: ["Microdata support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in microdata check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports microdata."
+                },
+                { 
+                    name: "Sandbox Attribute", 
+                    test: function() {
+                        try {
+                            var iframe = document.createElement('iframe');
+                            iframe.setAttribute('sandbox', 'allow-scripts');
+                            var result = iframe.sandbox.length > 0;
+                            return { result: result, logs: ["Sandbox attribute support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in sandbox attribute check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the sandbox attribute on iframes."
+                },
+                { 
+                    name: "Seamless Attribute", 
+                    test: function() {
+                        try {
+                            var iframe = document.createElement('iframe');
+                            iframe.seamless = true;
+                            var result = iframe.seamless === true;
+                            return { result: result, logs: ["Seamless attribute support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in seamless attribute check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the seamless attribute on iframes."
+                },
+                { 
+                    name: "iframe with Inline Contents", 
+                    test: function() {
+                        try {
+                            var iframe = document.createElement('iframe');
+                            var result = typeof iframe !== 'undefined';
+                            return { result: result, logs: ["iframe with inline contents support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in iframe with inline contents check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports iframes with inline contents."
+                },
+                { 
+                    name: "Cross-document Messaging", 
+                    test: function() {
+                        try {
+                            var result = !!window.postMessage;
+                            return { result: result, logs: ["Cross-document messaging support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in cross-document messaging check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports cross-document messaging using postMessage."
+                },
+                { 
+                    name: "Web Notifications", 
+                    test: function() {
+                        try {
+                            var result = 'Notification' in window;
+                            return { result: result, logs: ["Web Notifications support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Notifications check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Web Notifications."
+                },
+                { 
+                    name: "Access to Webcam", 
+                    test: function() {
+                        try {
+                            var result = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+                            return { result: result, logs: ["Access to webcam support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in access to webcam check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports access to the webcam using getUserMedia."
+                },
+                { 
+                    name: "Mutation Observer", 
+                    test: function() {
+                        try {
+                            var result = !!window.MutationObserver;
+                            return { result: result, logs: ["Mutation Observer support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Mutation Observer check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Mutation Observers for observing changes to the DOM."
                 }
             ];
 
