@@ -1,6 +1,6 @@
 <center><img src="favicon.ico" width="200"></img></center>
 
-# CAT Test v0.5 - Public
+# CAT Test v0.5.1 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
 
@@ -16,6 +16,11 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 ## English Version
 
 ### Changelog
+
+- **v0.5-fixb - Public**
+  - Added IEtest and ES6test file.
+  - Removed unnecessary tests such as Payment Request API.
+  - Updated README to reflect changes.
 
 - **v0.5 - Public**
   - Added steps.
@@ -91,7 +96,6 @@ The following test features are currently implemented:
 - **SVG Support**: Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images.
 - **Network Information API**: Tests if the browser supports the Network Information API, providing details about the user's network connection.
 - **Pointer Events Support**: Checks if the browser supports Pointer Events, used for handling mouse, touch, and pen input in a unified way.
-- **Payment Request API**: Tests if the browser supports the Payment Request API, allowing for easier and more secure online payments.
 - **Web NFC Support**: Tests if the browser supports the Web NFC API for enabling Near Field Communication interactions.
 - **WebVR/WebXR Support**: Checks if the browser supports WebVR or WebXR for Virtual Reality and Augmented Reality experiences.
 - **Web Speech API - Speech Recognition**: Tests if the browser supports the Web Speech API for speech recognition, allowing voice input.
@@ -113,6 +117,11 @@ This project is licensed under the Apache-2.0 License.
 ## 中文版
 
 ### 更新日志
+
+- **v0.5-fixb - Public**
+  - 增加了 IE 兼容性检查和 ES6 专项检查。
+  - 删除了一些无关紧要的测试，比如支付请求 API。
+  - 更新了 README 以反映更改。
 
 - **v0.5 - Public**
   - 增加了阶梯。
@@ -188,7 +197,6 @@ This project is licensed under the Apache-2.0 License.
 - **SVG Support**: 测试浏览器是否支持 SVG（可缩放矢量图形）以渲染矢量图像。
 - **Network Information API**: 测试浏览器是否支持网络信息 API，提供有关用户网络连接的详细信息。
 - **Pointer Events Support**: 检查浏览器是否支持指针事件，用于统一处理鼠标、触摸和笔输入。
-- **Payment Request API**: 测试浏览器是否支持支付请求 API，使在线支付更容易和更安全。
 - **Web NFC Support**: 测试浏览器是否支持 Web NFC API，以启用近场通信交互。
 - **WebVR/WebXR Support**: 检查浏览器是否支持 WebVR 或 WebXR，以实现虚拟现实和增强现实体验。
 - **Web Speech API - Speech Recognition**: 测试浏览器是否支持 Web Speech API 进行语音识别，允许语音输入。

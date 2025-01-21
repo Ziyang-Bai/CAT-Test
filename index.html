@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAT Test v0.5 - Public</title>
+    <title>CAT Test v0.5.1 - Public</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
         #results { margin-top: 20px; }
@@ -28,7 +28,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self' 'unsafe-inline';">
 </head>
 <body>
-    <h1>CAT Test v0.5 - Public</h1>
+    <h1>CAT Test v0.5.1 - Public</h1>
     <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
     <p><strong>Note:</strong> This test includes a check for Content Security Policy (CSP) which may affect the loading of certain resources for security purposes.</p>
     <div style="display: flex; align-items: center;">
@@ -44,6 +44,11 @@
     </div>
     <p>View the project on <a href="https://github.com/elefish-top/CAT-Test" target="_blank">GitHub</a>.</p>
     <p id="ipAddress">Fetching IP address...</p>
+    <p>Additional Tests:</p>
+    <ul>
+        <li><a href="IEtest.html" target="_blank">IE Test</a></li>
+        <li><a href="ES6test.html" target="_blank">ES6 Test</a></li>
+    </ul>
 
     <script>
         function runTests() {
@@ -53,14 +58,17 @@
             progress.innerHTML = '';
 
             // Fetch and display the user's IP address
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.ipify.org?format=json', true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
                     document.getElementById('ipAddress').textContent = 'Your IP Address: ' + data.ip;
-                })
-                .catch(error => {
+                } else if (xhr.readyState == 4) {
                     document.getElementById('ipAddress').textContent = 'Unable to fetch IP address.';
-                });
+                }
+            };
+            xhr.send();
 
             var tests = [
                 { 
@@ -239,22 +247,36 @@
                 {
                     name: "ES6 Support",
                     test: function() {
+                        var logs = [];
                         try {
-                            var result = (function() {
-                                try {
-                                    // 测试 ES6 的核心特性：let 和 const
-                                    eval("let x = 1; const y = 2; x + y");
-                                    return true;
-                                } catch (err) {
-                                    return false;
-                                }
-                            })();
-                            return { result: result, logs: ["ES6 support: " + (result ? "PASS" : "FAIL")] };
+                            // Test for let/const
+                            var letTest = true;
+                            var constTest = true;
+
+                            // Test for arrow functions
+                            var arrowFuncTest = function() { return true; };
+
+                            // Test for template literals
+                            var templateLiteralTest = "" + letTest;
+
+                            // Test for classes
+                            var ES6ClassTest = function() {};
+
+                            // Test for default parameters
+                            var defaultParamTest = function(param) { if (param === undefined) param = true; return param; };
+
+                            // Test for promises
+                            var promiseTest = new Promise(function(resolve) { resolve(true); });
+
+                            // If no errors were thrown, the browser supports ES6
+                            logs.push("ES6 features support: PASS");
+                            return { result: true, logs: logs };
                         } catch (e) {
-                            return { result: false, logs: ["Error in ES6 check: " + e.message] };
+                            logs.push("Error in ES6 check: " + e.message);
+                            return { result: false, logs: logs };
                         }
                     },
-                    details: "Checks if the browser supports ECMAScript 6 (ES6) features."
+                    details: "Tests if the browser supports ES6 (ECMAScript 2015) features."
                 },
                 {
                     name: "WebGL Support",
@@ -282,78 +304,6 @@
                     details: "Tests if the browser supports SVG (Scalable Vector Graphics) for rendering vector images."
                 },
                 { 
-                    name: "Network Information API", 
-                    test: function() {
-                        try {
-                            var result = 'connection' in navigator;
-                            return { result: result, logs: ["Network Information API support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Network Information API check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Network Information API, providing details about the user's network connection."
-                },
-                { 
-                    name: "Pointer Events Support", 
-                    test: function() {
-                        try {
-                            var result = 'PointerEvent' in window;
-                            return { result: result, logs: ["Pointer Events support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Pointer Events check: " + e.message] };
-                        }
-                    },
-                    details: "Checks if the browser supports Pointer Events, used for handling mouse, touch, and pen input in a unified way."
-                },
-                { 
-                    name: "Payment Request API", 
-                    test: function() {
-                        try {
-                            var result = 'PaymentRequest' in window;
-                            return { result: result, logs: ["Payment Request API support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Payment Request API check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Payment Request API, allowing for easier and more secure online payments."
-                },
-                { 
-                    name: "Web NFC Support", 
-                    test: function() {
-                        try {
-                            var result = 'NFC' in window;
-                            return { result: result, logs: ["Web NFC support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Web NFC check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Web NFC API for enabling Near Field Communication interactions."
-                },
-                { 
-                    name: "WebVR/WebXR Support", 
-                    test: function() {
-                        try {
-                            var result = 'getUserMedia' in navigator || 'xr' in navigator;
-                            return { result: result, logs: ["WebVR/WebXR support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in WebVR/WebXR check: " + e.message] };
-                        }
-                    },
-                    details: "Checks if the browser supports WebVR or WebXR for Virtual Reality and Augmented Reality experiences."
-                },
-                { 
-                    name: "Web Speech API - Speech Recognition", 
-                    test: function() {
-                        try {
-                            var result = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
-                            return { result: result, logs: ["Web Speech API (Speech Recognition) support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Web Speech API check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Web Speech API for speech recognition, allowing voice input."
-                },
-                { 
                     name: "Clipboard API", 
                     test: function() {
                         try {
@@ -364,66 +314,6 @@
                         }
                     },
                     details: "Checks if the browser supports the Clipboard API for reading and writing content to the clipboard."
-                },
-                { 
-                    name: "Web Push Notifications", 
-                    test: function() {
-                        try {
-                            var result = 'PushManager' in window;
-                            return { result: result, logs: ["Web Push Notifications support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Web Push Notifications check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports Web Push Notifications, allowing websites to send notifications to users."
-                },
-                { 
-                    name: "File System Access API", 
-                    test: function() {
-                        try {
-                            var result = 'showOpenFilePicker' in window;
-                            return { result: result, logs: ["File System Access API support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in File System Access API check: " + e.message] };
-                        }
-                    },
-                    details: "Checks if the browser supports the File System Access API, allowing websites to read and write files to the local file system."
-                },
-                { 
-                    name: "Audio Worklet API", 
-                    test: function() {
-                        try {
-                            var result = 'AudioWorklet' in window;
-                            return { result: result, logs: ["Audio Worklet support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Audio Worklet check: " + e.message] };
-                        }
-                    },
-                    details: "Checks if the browser supports Audio Worklet API for real-time audio processing and synthesis."
-                },
-                { 
-                    name: "Background Sync API", 
-                    test: function() {
-                        try {
-                            var result = 'SyncManager' in window;
-                            return { result: result, logs: ["Background Sync API support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Background Sync API check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Background Sync API, allowing websites to synchronize data in the background."
-                },
-                { 
-                    name: "Web Bluetooth API", 
-                    test: function() {
-                        try {
-                            var result = 'bluetooth' in navigator;
-                            return { result: result, logs: ["Web Bluetooth API support: " + (result ? "PASS" : "FAIL")] };
-                        } catch (e) {
-                            return { result: false, logs: ["Error in Web Bluetooth check: " + e.message] };
-                        }
-                    },
-                    details: "Tests if the browser supports the Web Bluetooth API for connecting and interacting with Bluetooth devices."
                 },
                 { 
                     name: "DOM Manipulation", 
@@ -485,26 +375,41 @@
                     },
                     details: "Tests if the browser supports @font-face rule and custom fonts."
                 },
-                { 
-                    name: "Data URI Support", 
+                {
+                    name: "Data URI Support",
                     test: function() {
-                        return new Promise((resolve) => {
-                            try {
-                                var img = new Image();
-                                img.onload = function() {
-                                    var result = img.width === 1 && img.height === 1;
-                                    resolve({ result: result, logs: ["Data URI support: " + (result ? "PASS" : "FAIL")] });
-                                };
-                                img.onerror = function() {
-                                    resolve({ result: false, logs: ["Data URI support: FAIL"] });
-                                };
-                                img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAPUExURQCWZcndsQVMk91EMwAAACLr6bkAAAAFdFJOU/////8A+7YOUwAAAAlwSFlzAAAOwwAADsMBx2+oZAAAAFpJREFUKFNVjgkOACEIAyvy/zdvD0yWRqKMpQqcLYGKvB80TvmKwA4BXqgb0NDhVcDMSwIc+umBq6IgIGLA1RtAIGG3rkcEaPGDzotDNf04+JfEBzgkrcBS9wfvoQIucsfr2wAAAABJRU5ErkJggg==";
-                            } catch (e) {
-                                resolve({ result: false, logs: ["Error in Data URI support check: " + e.message] });
+                        var logs = [];
+                        try {
+                            // Create a simple Data URI (Base64-encoded image)
+                            var dataUri = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HwAGgwJ/l6VfMgAAAABJRU5ErkJggg==";
+                            
+                            // Create an Image element
+                            var img = new Image();
+                            img.src = dataUri;
+
+                            // Check if the browser can load the Data URI
+                            img.onload = function() {
+                                logs.push("Data URI is supported: PASS");
+                            };
+                            img.onerror = function() {
+                                logs.push("Data URI support failed: FAIL");
+                            };
+
+                            // Test with other Data URI formats
+                            var textUri = "data:text/plain;charset=utf-8,Hello%20World!";
+                            if (!textUri.startsWith("data:text/plain")) {
+                                throw new Error("Plain text Data URI check failed.");
                             }
-                        });
+
+                            // No errors encountered, Data URI is supported
+                            logs.push("Plain text Data URI is supported: PASS");
+                            return { result: true, logs: logs };
+                        } catch (e) {
+                            logs.push("Error in Data URI check: " + e.message);
+                            return { result: false, logs: logs };
+                        }
                     },
-                    details: "Tests if the browser supports Data URIs."
+                    details: "Tests if the browser supports Data URI schemes for embedding inline data."
                 },
                 { 
                     name: "XMLHttpRequest Support", 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IE Support Test</title>
+</head>
+<body>
+    <h1>IE Support Test</h1>
+    <div id="result"></div>
+
+    <script>
+        function testIE() {
+            var tests = [
+                { name: "ES5 Support", test: function() {
+                    try {
+                        return typeof Array.prototype.forEach === 'function' &&
+                               typeof JSON.parse === 'function' &&
+                               typeof Object.create === 'function';
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "XHR Support", test: function() {
+                    try {
+                        return typeof XMLHttpRequest !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "LocalStorage Support", test: function() {
+                    try {
+                        return 'localStorage' in window && window['localStorage'] !== null;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "CSS Flexbox Support", test: function() {
+                    try {
+                        return CSS.supports("display", "flex");
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "SVG Support", test: function() {
+                    try {
+                        return !!document.createElementNS && !!document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGRect;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "Canvas Support", test: function() {
+                    try {
+                        return !!document.createElement('canvas').getContext;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "Geolocation API Support", test: function() {
+                    try {
+                        return 'geolocation' in navigator;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "WebSockets Support", test: function() {
+                    try {
+                        return 'WebSocket' in window;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "CSS Grid Support", test: function() {
+                    try {
+                        return CSS.supports("display", "grid");
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "CSS Variables Support", test: function() {
+                    try {
+                        return CSS.supports("color", "var(--primary-color)");
+                    } catch (e) {
+                        return false;
+                    }
+                }}
+            ];
+
+            var results = [];
+            for (var i = 0; i < tests.length; i++) {
+                var test = tests[i];
+                var result = test.test();
+                results.push({ name: test.name, result: result });
+            }
+
+            var passedTests = results.filter(function(test) { return test.result; }).length;
+            var totalTests = results.length;
+            var supportPercentage = Math.round((passedTests / totalTests) * 100);
+
+            return { results: results, supportPercentage: supportPercentage };
+        }
+
+        var testResults = testIE();
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<h2>IE Support: ' + testResults.supportPercentage + '%</h2>';
+        for (var i = 0; i < testResults.results.length; i++) {
+            var test = testResults.results[i];
+            var testDiv = document.createElement('div');
+            testDiv.textContent = test.name + ': ' + (test.result ? 'PASS' : 'FAIL');
+            resultDiv.appendChild(testDiv);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6 Support Test</title>
+</head>
+<body>
+    <h1>ES6 Support Test</h1>
+    <div id="result"></div>
+
+    <script>
+        function testES6() {
+            const tests = [
+                { name: "Arrow functions and default parameters", test: () => { try { new Function("(a = 0) => a"); return true; } catch (e) { return false; } } },
+                { name: "let and const", test: () => { try { let x = 1; const y = 2; return true; } catch (e) { return false; } } },
+                { name: "Classes", test: () => { try { class Test {}; return true; } catch (e) { return false; } } },
+                { name: "Symbols", test: () => { try { return typeof Symbol() === 'symbol'; } catch (e) { return false; } } },
+                { name: "String includes", test: () => { try { return "foo".includes("o"); } catch (e) { return false; } } },
+                { name: "Array find", test: () => { try { return [1, 2, 3].find(x => x === 2) === 2; } catch (e) { return false; } } },
+                { name: "Promises", test: () => { try { return typeof new Promise((resolve, reject) => {}) === 'object'; } catch (e) { return false; } } },
+                { name: "Maps", test: () => { try { return typeof new Map() === 'object'; } catch (e) { return false; } } },
+                { name: "Sets", test: () => { try { return typeof new Set() === 'object'; } catch (e) { return false; } } },
+                { name: "Array.from", test: () => { try { return typeof Array.from === 'function'; } catch (e) { return false; } } },
+                { name: "Template literals", test: () => { try { return `${1}` === '1'; } catch (e) { return false; } } },
+                { name: "Destructuring", test: () => { try { const {a, b} = {a: 1, b: 2}; return a === 1 && b === 2; } catch (e) { return false; } } },
+                { name: "Spread operator", test: () => { try { return Math.max(...[1, 2, 3]) === 3; } catch (e) { return false; } } },
+                { name: "Rest parameters", test: () => { try { return (function(...args) { return args.length; })(1, 2, 3) === 3; } catch (e) { return false; } } },
+                { name: "Modules", test: () => { try { new Function("import('data:text/javascript,')"); return true; } catch (e) { return false; } } },
+                { name: "Generators", test: () => { try { function* gen() {}; return typeof gen === 'function'; } catch (e) { return false; } } },
+                { name: "WeakMap", test: () => { try { return typeof new WeakMap() === 'object'; } catch (e) { return false; } } },
+                { name: "WeakSet", test: () => { try { return typeof new WeakSet() === 'object'; } catch (e) { return false; } } },
+                { name: "Proxy", test: () => { try { return typeof new Proxy({}, {}) === 'object'; } catch (e) { return false; } } },
+                { name: "Reflect", test: () => { try { return typeof Reflect === 'object'; } catch (e) { return false; } } },
+                { name: "Object.assign", test: () => { try { return typeof Object.assign === 'function'; } catch (e) { return false; } } },
+                { name: "Object.is", test: () => { try { return typeof Object.is === 'function'; } catch (e) { return false; } } },
+                { name: "Object.setPrototypeOf", test: () => { try { return typeof Object.setPrototypeOf === 'function'; } catch (e) { return false; } } },
+                { name: "Typed arrays", test: () => { try { return typeof new Uint8Array() === 'object'; } catch (e) { return false; } } },
+                { name: "Array.prototype.includes", test: () => { try { return typeof Array.prototype.includes === 'function'; } catch (e) { return false; } } },
+                { name: "Exponentiation operator", test: () => { try { return 2 ** 3 === 8; } catch (e) { return false; } } },
+                { name: "Async functions", test: () => { try { new Function("async () => {}"); return true; } catch (e) { return false; } } }
+            ];
+
+            const results = tests.map(test => ({ name: test.name, result: test.test() }));
+            const passedTests = results.filter(test => test.result).length;
+            const totalTests = results.length;
+            const supportPercentage = Math.round((passedTests / totalTests) * 100);
+
+            return { results, supportPercentage };
+        }
+
+        const { results, supportPercentage } = testES6();
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `<h2>ES6 Support: ${supportPercentage}%</h2>`;
+        results.forEach(test => {
+            const testDiv = document.createElement('div');
+            testDiv.textContent = `${test.name}: ${test.result ? 'PASS' : 'FAIL'}`;
+            resultDiv.appendChild(testDiv);
+        });
+    </script>
+</body>
+</html>
