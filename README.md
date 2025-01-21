@@ -1,6 +1,6 @@
 <center><img src="favicon.ico" width="200"></img></center>
 
-# CAT Test v0.5.2 - Public
+# CAT Test v0.6 - Public
 
 This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.
 
@@ -16,6 +16,11 @@ This is a browser compatibility and feature test. Click "Run Tests" to evaluate 
 ## English Version
 
 ### Changelog
+
+- **v0.6 - Public**
+  - Added a tip for enabling JavaScript if tests do not run.
+  - Removed usage of example.com resources.
+  - Updated README to reflect changes.
 
 - **v0.5.2 - Public**
   - Fixed bugs in MathML Support, summary Element, Sandbox Attribute, and iframe with Inline Contents tests.
@@ -121,6 +126,10 @@ This project is licensed under the Apache-2.0 License.
 ## 中文版
 
 ### 更新日志
+
+- **v0.6 - Public**
+  - 增加了一个提示，如果无法运行测试请启用JavaScript。
+  - 移除了使用example.com的资源。
 
 - **v0.5.2 - Public**
   - 修复了 MathML 支持、summary 元素、Sandbox 属性和 iframe 内联内容测试中的错误。

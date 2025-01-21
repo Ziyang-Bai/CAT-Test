@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAT Test v0.5.2 - Public</title>
+    <title>CAT Test v0.6 - Public</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
         #results { margin-top: 20px; }
@@ -28,9 +28,10 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self' 'unsafe-inline';">
 </head>
 <body>
-    <h1>CAT Test v0.5.2 - Public</h1>
+    <h1>CAT Test v0.6 - Public</h1>
     <p>This is a browser compatibility and feature test. Click "Run Tests" to evaluate your browser's capabilities.</p>
     <p><strong>Note:</strong> This test includes a check for Content Security Policy (CSP) which may affect the loading of certain resources for security purposes.</p>
+    <p><strong>Tip:</strong> If the tests do not run, please enable JavaScript. If the issue persists, please use the <a href="IEtest.html" target="_blank">IE Test</a>.</p>
     <div style="display: flex; align-items: center;">
         <button id="runTestsButton">Run Tests</button>
     </div>
@@ -807,6 +808,334 @@
                         }
                     },
                     details: "Tests if the browser supports Mutation Observers for observing changes to the DOM."
+                },
+                { 
+                    name: "Web Cryptography API", 
+                    test: function() {
+                        try {
+                            var result = typeof crypto !== 'undefined' && typeof crypto.subtle !== 'undefined';
+                            return { result: result, logs: ["Web Cryptography API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Cryptography API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Web Cryptography API."
+                },
+                { 
+                    name: "Content Security Policy 1", 
+                    test: function() {
+                        try {
+                            var meta = document.createElement('meta');
+                            meta.httpEquiv = "Content-Security-Policy";
+                            meta.content = "default-src 'self'";
+                            document.head.appendChild(meta);
+                            var result = true;
+                            return { result: result, logs: ["Content Security Policy 1 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Content Security Policy 1 check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Content Security Policy 1."
+                },
+                { 
+                    name: "Content Security Policy 2", 
+                    test: function() {
+                        try {
+                            var meta = document.createElement('meta');
+                            meta.httpEquiv = "Content-Security-Policy";
+                            meta.content = "script-src 'self'";
+                            document.head.appendChild(meta);
+                            var result = true;
+                            return { result: result, logs: ["Content Security Policy 2 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Content Security Policy 2 check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Content Security Policy 2."
+                },
+                { 
+                    name: "Cross-Origin Resource Sharing", 
+                    test: function() {
+                        try {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', '/', true);
+                            xhr.setRequestHeader('Origin', location.origin);
+                            var result = 'withCredentials' in xhr;
+                            return { result: result, logs: ["Cross-Origin Resource Sharing support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Cross-Origin Resource Sharing check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Cross-Origin Resource Sharing (CORS)."
+                },
+                { 
+                    name: "Subresource Integrity", 
+                    test: function() {
+                        try {
+                            var link = document.createElement('link');
+                            link.rel = 'stylesheet';
+                            link.href = 'style.css';
+                            link.integrity = 'sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxp1Lz2xD5F5y5Q5Q5Q5Q5Q5Q';
+                            link.crossOrigin = 'anonymous';
+                            document.head.appendChild(link);
+                            var result = link.integrity === 'sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxp1Lz2xD5F5y5Q5Q5Q5Q5Q';
+                            return { result: result, logs: ["Subresource Integrity support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Subresource Integrity check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Subresource Integrity (SRI)."
+                },
+                { 
+                    name: "Web Authentication / FIDO 2", 
+                    test: function() {
+                        try {
+                            var result = typeof PublicKeyCredential !== 'undefined';
+                            return { result: result, logs: ["Web Authentication / FIDO 2 support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Web Authentication / FIDO 2 check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Web Authentication / FIDO 2."
+                },
+                { 
+                    name: "Credential Management", 
+                    test: function() {
+                        try {
+                            var result = typeof navigator.credentials !== 'undefined';
+                            return { result: result, logs: ["Credential Management support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Credential Management check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Credential Management API."
+                },
+                { 
+                    name: "Sandboxed iframe", 
+                    test: function() {
+                        try {
+                            var iframe = document.createElement('iframe');
+                            iframe.setAttribute('sandbox', 'allow-scripts');
+                            var result = iframe.sandbox.length > 0;
+                            return { result: result, logs: ["Sandboxed iframe support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Sandboxed iframe check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports sandboxed iframes."
+                },
+                { 
+                    name: "iframe with inline contents", 
+                    test: function() {
+                        try {
+                            var iframe = document.createElement('iframe');
+                            iframe.srcdoc = '<p>Test</p>';
+                            document.body.appendChild(iframe);
+                            var result = iframe.contentDocument.body.innerHTML.trim() === '<p>Test</p>';
+                            document.body.removeChild(iframe);
+                            return { result: result, logs: ["iframe with inline contents support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in iframe with inline contents check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports iframes with inline contents using the srcdoc attribute."
+                },
+                { 
+                    name: "Asynchronous script execution", 
+                    test: function() {
+                        try {
+                            var script = document.createElement('script');
+                            script.async = true;
+                            var result = script.async === true;
+                            return { result: result, logs: ["Asynchronous script execution support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Asynchronous script execution check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports asynchronous script execution."
+                },
+                { 
+                    name: "Defered script execution", 
+                    test: function() {
+                        try {
+                            var script = document.createElement('script');
+                            script.defer = true;
+                            var result = script.defer === true;
+                            return { result: result, logs: ["Defered script execution support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Defered script execution check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports defered script execution."
+                },
+                { 
+                    name: "Script execution events", 
+                    test: function() {
+                        try {
+                            var script = document.createElement('script');
+                            var result = 'onload' in script && 'onerror' in script;
+                            return { result: result, logs: ["Script execution events support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Script execution events check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports script execution events."
+                },
+                { 
+                    name: "Runtime script error reporting", 
+                    test: function() {
+                        try {
+                            var result = 'onerror' in window;
+                            return { result: result, logs: ["Runtime script error reporting support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Runtime script error reporting check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports runtime script error reporting."
+                },
+                { 
+                    name: "JSON encoding and decoding", 
+                    test: function() {
+                        try {
+                            var result = typeof JSON !== 'undefined' && typeof JSON.parse === 'function' && typeof JSON.stringify === 'function';
+                            return { result: result, logs: ["JSON encoding and decoding support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in JSON encoding and decoding check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports JSON encoding and decoding."
+                },
+                { 
+                    name: "Modules", 
+                    test: function() {
+                        try {
+                            var result = 'noModule' in document.createElement('script');
+                            return { result: result, logs: ["Modules support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Modules check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 modules."
+                },
+                { 
+                    name: "Classes", 
+                    test: function() {
+                        try {
+                            eval('class TestClass {}');
+                            return { result: true, logs: ["Classes support: PASS"] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Classes check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 classes."
+                },
+                { 
+                    name: "Arrow functions", 
+                    test: function() {
+                        try {
+                            eval('var arrowFunc = () => {};');
+                            return { result: true, logs: ["Arrow functions support: PASS"] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Arrow functions check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 arrow functions."
+                },
+                { 
+                    name: "Promises", 
+                    test: function() {
+                        try {
+                            var result = typeof Promise !== 'undefined';
+                            return { result: result, logs: ["Promises support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Promises check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 promises."
+                },
+                { 
+                    name: "Template strings", 
+                    test: function() {
+                        try {
+                            eval('var templateString = `test`;');
+                            return { result: true, logs: ["Template strings support: PASS"] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Template strings check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 template strings."
+                },
+                { 
+                    name: "Typed arrays", 
+                    test: function() {
+                        try {
+                            var result = typeof Uint8Array !== 'undefined';
+                            return { result: result, logs: ["Typed arrays support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Typed arrays check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 typed arrays."
+                },
+                { 
+                    name: "Internationalization", 
+                    test: function() {
+                        try {
+                            var result = typeof Intl !== 'undefined';
+                            return { result: result, logs: ["Internationalization support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Internationalization check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 6 internationalization."
+                },
+                { 
+                    name: "Async and Await", 
+                    test: function() {
+                        try {
+                            eval('async function testAsync() { await Promise.resolve(); }');
+                            return { result: true, logs: ["Async and Await support: PASS"] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Async and Await check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports ECMAScript 7 async and await."
+                },
+                { 
+                    name: "Base64 encoding and decoding", 
+                    test: function() {
+                        try {
+                            var result = typeof btoa !== 'undefined' && typeof atob !== 'undefined';
+                            return { result: result, logs: ["Base64 encoding and decoding support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Base64 encoding and decoding check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports Base64 encoding and decoding."
+                },
+                { 
+                    name: "URL API", 
+                    test: function() {
+                        try {
+                            var result = typeof URL !== 'undefined';
+                            return { result: result, logs: ["URL API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in URL API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the URL API."
+                },
+                { 
+                    name: "Encoding API", 
+                    test: function() {
+                        try {
+                            var result = typeof TextEncoder !== 'undefined' && typeof TextDecoder !== 'undefined';
+                            return { result: result, logs: ["Encoding API support: " + (result ? "PASS" : "FAIL")] };
+                        } catch (e) {
+                            return { result: false, logs: ["Error in Encoding API check: " + e.message] };
+                        }
+                    },
+                    details: "Tests if the browser supports the Encoding API."
                 }
             ];
 

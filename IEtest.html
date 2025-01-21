@@ -83,6 +83,41 @@
                     } catch (e) {
                         return false;
                     }
+                }},
+                { name: "Promise Support", test: function() {
+                    try {
+                        return typeof Promise !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "Fetch API Support", test: function() {
+                    try {
+                        return typeof fetch !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "Intersection Observer Support", test: function() {
+                    try {
+                        return typeof IntersectionObserver !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "Service Worker Support", test: function() {
+                    try {
+                        return 'serviceWorker' in navigator;
+                    } catch (e) {
+                        return false;
+                    }
+                }},
+                { name: "WebAssembly Support", test: function() {
+                    try {
+                        return typeof WebAssembly !== 'undefined';
+                    } catch (e) {
+                        return false;
+                    }
                 }}
             ];
 
